@@ -1,40 +1,61 @@
-let primaryWebSocket = new WebSocket("ws://localhost:6789");
-let secondaryWebSocket = new WebSocket("ws://localhost:5678");
+let primaryWebSocket;
+let secondaryWebSocket;
 
-// Set up primary WebSocket connection
-primaryWebSocket.onopen = () => {
-    console.log('Primary WebSocket is connected');
-};
+// Define WebSocket connection function for primary WebSocket
+function connectPrimaryWebSocket() {
+    primaryWebSocket = new WebSocket("ws://localhost:6789");
 
-primaryWebSocket.onmessage = (event) => {
-    console.log('Message from the server:', event.data);
-};
+    primaryWebSocket.onopen = () => {
+        console.log('Primary WebSocket is connected');
+    };
 
-primaryWebSocket.onclose = () => {
-    console.log('Primary WebSocket is closed, attempting to reconnect...');
-    // Reconnection logic here if needed
-};
+    primaryWebSocket.onmessage = (event) => {
+        console.log('Message from the server:', event.data);
+    };
 
-// Set up secondary WebSocket connection
-secondaryWebSocket.onopen = () => {
-    console.log('Secondary WebSocket is connected');
-};
+    primaryWebSocket.onclose = () => {
+        console.log('Primary WebSocket is closed, attempting to reconnect...');
+        setTimeout(connectPrimaryWebSocket, 3000); // Attempt to reconnect after a delay
+    };
+}
 
-secondaryWebSocket.onmessage = (event) => {
-    console.log('Message from the server:', event.data);
-};
+// Define WebSocket connection function for secondary WebSocket
+function connectSecondaryWebSocket() {
+    secondaryWebSocket = new WebSocket("ws://localhost:5678");
 
-secondaryWebSocket.onclose = () => {
-    console.log('Secondary WebSocket is closed, attempting to reconnect...');
-    // Reconnection logic here if needed
-};
+    secondaryWebSocket.onopen = () => {
+        console.log('Secondary WebSocket is connected');
+    };
 
-// Listen for messages from the popup or content scripts
-chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
-    if (message.command === "start_recording") {
-        primaryWebSocket.send("start_recording");
-    } else if (message.command === "stop_recording") {
-        secondaryWebSocket.send("stop_recording");
+    secondaryWebSocket.onmessage = (event) => {
+        console.log('Message from the server:', event.data);
+    };
+
+    secondaryWebSocket.onclose = () => {
+        console.log('Secondary WebSocket is closed, attempting to reconnect...');
+        setTimeout(connectSecondaryWebSocket, 3000); // Attempt to reconnect after a delay
+    };
+}
+
+// Listener for messages from the popup
+chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+    if (request.command === "start_recording") {
+        if (primaryWebSocket.readyState === WebSocket.OPEN) {
+            primaryWebSocket.send("start_recording");
+            console.log('Sending Start Recording message to the primary WebSocket');
+        } else {
+            console.error('Primary WebSocket is not connected');
+        }
+    } else if (request.command === "stop_recording") {
+        if (secondaryWebSocket && secondaryWebSocket.readyState === WebSocket.OPEN) {
+            secondaryWebSocket.send("stop_recording");
+            console.log('Sending Stop Recording message to the secondary WebSocket');
+        } else {
+            console.error('Secondary WebSocket is not connected');
+        }
     }
-    // Add more commands as needed
 });
+
+// Connect WebSockets when the extension is loaded
+connectPrimaryWebSocket();
+connectSecondaryWebSocket();
