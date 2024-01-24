@@ -41,12 +41,12 @@ async def websocket_handler(websocket, path):
                     print(f"\nRECEIVED MESSAGE: {message_data}\n")
 
                     command = message_data.get("command")
-                    user_input = message_data.get("userInput", "")
+                    # user_input = message_data.get("userInput", "")
                     # checking to see if command is start_recording
                     #will start script recording if the command is start_recording
                     if command == "start_recording":
-                        print("Starting recording with user input:", user_input)
-                        app.user_input= user_input
+                        print("Starting recording...") #removed user_input for now
+                        # app.user_input= user_input
                         await app.start_recording()
                         # await app.handle_speech_interaction(user_input)
                         print("Recording complete.")
