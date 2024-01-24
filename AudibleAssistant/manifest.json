@@ -1,0 +1,17 @@
+{
+    "manifest_version": 3,
+    "name": "AudibleAssistant",
+    "version": "1.0",
+    "description": "Your extension description here",
+    "background": {
+      "service_worker": "background/background.js"
+    },
+    "content_scripts": [
+      {
+        "matches": ["<all_urls>"],
+        "js": ["content_scripts/content.js"]
+      }
+    ],
+    "options_page": "options.html"
+  }
+  
