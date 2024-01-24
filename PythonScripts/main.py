@@ -229,7 +229,7 @@ class OpenAIChatbot:
                 openai.ChatCompletion.create,
                 model="gpt-4",
                 messages=[
-                    {"role": "system", "content": user_input},
+                    {"role": "system", "content": ""},
                     {"role": "user", "content": message}])  # Sends the message to OpenAI and gets a response
         
         response_text = completion.choices[0].message.content  # Extracts the content of the response

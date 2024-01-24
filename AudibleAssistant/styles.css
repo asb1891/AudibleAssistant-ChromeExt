@@ -1,0 +1,25 @@
+/* styles.css */
+.stopButton {
+    font-size: 18px;
+    font-weight: bold;
+    justify-content: center;
+    margin: 10px;
+    margin-left: 10px;
+}
+
+.startButton {
+    font-size: 18px;
+    font-weight: bold;
+    justify-content: center;
+    margin: 10px;
+    margin-left: 10px;
+}
+
+#popup-container {
+    width: 200px; /* Adjust width as needed */
+    height: 200px; /* Adjust height as needed */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
