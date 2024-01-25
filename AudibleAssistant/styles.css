@@ -22,4 +22,14 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    border-radius: 3px; /* Rounded corners */
+    border: 1px solid #000000; /* 1 pixel solid black border */
+}
+
+.title {
+    font-size: 18px;
+    font-weight: bold;
+    justify-content: center;
+    margin: 10px;
+    margin-left: 10px;
 }
