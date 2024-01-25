@@ -1,15 +1,25 @@
 const floatingContainer = document.createElement("div");
 floatingContainer.id = "my-floating-container";
-floatingContainer.style.display = 'flex';
-floatingContainer.style.flexDirection = 'column';
-floatingContainer.style.alignItems = 'center'; // This centers the buttons horizontally
-floatingContainer.style.justifyContent = 'space-evenly'; // This distributes space evenly between children
+floatingContainer.style.display = "flex";
+floatingContainer.style.flexDirection = "column";
+floatingContainer.style.alignItems = "center"; // This centers the buttons horizontally
+floatingContainer.style.justifyContent = "space-evenly"; // This distributes space evenly between children
 // Add any desired styles to floatingContainer here or in a linked CSS file
 
+const recordingStatusImg = document.createElement("img");
+recordingStatusImg.id = "recordingStatus";
+recordingStatusImg.src = chrome.runtime.getURL("images/mic.gif");
+console.log(chrome.runtime.getURL("images/mic.gif"));
+recordingStatusImg.style.width = "50px";
+recordingStatusImg.style.height = "50px";
+recordingStatusImg.style.marginBottom = "10px";
+recordingStatusImg.style.display = "block";
 // Create the start recording button
 const startRecordingButton = document.createElement("button");
 startRecordingButton.id = "startRecording";
 startRecordingButton.textContent = "Turn On Mic";
+
+//Function to send start recording message over websocket
 startRecordingButton.addEventListener("click", () => {
   // Logic for starting recording
   try {
@@ -22,7 +32,9 @@ startRecordingButton.addEventListener("click", () => {
             chrome.runtime.lastError
           );
         } else {
-          console.log("Recording started. Background response:", response);
+            console.log("Changing to mic.gif");
+            recordingStatusImg.src = chrome.runtime.getURL("images/mic.gif");
+            console.log("New src: ", recordingStatusImg.src);
         }
       }
     );
@@ -35,6 +47,9 @@ startRecordingButton.addEventListener("click", () => {
 const stopRecordingButton = document.createElement("button");
 stopRecordingButton.id = "stopRecording";
 stopRecordingButton.textContent = "Turn Off Mic";
+stopRecordingButton.borderColor = "#2F4F4F";
+
+//Function to send stop recording message over websocket
 stopRecordingButton.addEventListener("click", () => {
   // Logic for stopping recording
   try {
@@ -48,6 +63,9 @@ stopRecordingButton.addEventListener("click", () => {
           );
         } else {
           console.log("Recording stopped. Background response:", response);
+          //Change the GIF to the default GIF
+          recordingStatusImg.src = chrome.runtime.getURL("images/nomic.gif");
+          console.log("changing to recording gif");
         }
       }
     );
@@ -58,14 +76,21 @@ stopRecordingButton.addEventListener("click", () => {
 // Create a title for the floating container
 const floatingTitle = document.createElement("h2");
 floatingTitle.textContent = "AUDIBLE ASSISTANT";
-floatingTitle.style.fontStyle = "italic";
-floatingTitle.style.color = "#2F4F4F";
+floatingTitle.style.fontStyle = "bold";
+floatingTitle.style.color = "#ffffff";
+floatingTitle.style.backgroundColor = "#2F4F4F";
+floatingTitle.style.borderRadius = "5px";
+floatingTitle.style.border = "2px solid #2F4F4F";
+floatingTitle.style.padding = "5px";
 floatingTitle.style.textAlign = "center";
-floatingTitle.style.fontSize = "16px";
+floatingTitle.style.fontSize = "14px";
 floatingTitle.style.fontWeight = "bold";
 floatingTitle.style.marginBottom = "10px";
+
 //Append Title to floating container
 floatingContainer.appendChild(floatingTitle);
+//Append the img element to the floating container
+floatingContainer.appendChild(recordingStatusImg);
 // Append buttons to the floating container
 floatingContainer.appendChild(startRecordingButton);
 floatingContainer.appendChild(stopRecordingButton);

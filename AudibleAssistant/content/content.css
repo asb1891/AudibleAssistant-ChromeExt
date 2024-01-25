@@ -1,12 +1,10 @@
 #my-floating-container {
     position: fixed;
-    bottom: 20px;
+    bottom: 50px;
     right: 20px;
-    width: 200px; /* Adjust size as needed */
+    width: 200px;
     height: 300px;
     padding: 10px;
-    background-color: #E9967A; /* Or any color you prefer */
-    border: 1px solid #CCC;
     border-radius: 8px;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
     z-index: 10000; /* Ensure it floats above other content */
@@ -14,7 +12,70 @@
     margin-left: 10px;
     font-size: 18px;
     font-weight: bold;
-    border-radius: 3px;
-    border: 2px solid #2F4F4F;
-    /* Add more styling as needed */
+    border-radius: 8px;
+    border: 3px solid #2F4F4F;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    background-color: #ffffff;
 }
+#stopRecording {
+    --c:  #CD5C5C; /* the color*/
+    
+    box-shadow: 0 0 0 .1em inset var(--c); 
+    --_g: linear-gradient(var(--c) 0 0) no-repeat;
+    background: 
+      var(--_g) calc(var(--_p,0%) - 100%) 0%,
+      var(--_g) calc(200% - var(--_p,0%)) 0%,
+      var(--_g) calc(var(--_p,0%) - 100%) 100%,
+      var(--_g) calc(200% - var(--_p,0%)) 100%;
+    background-size: 50.5% calc(var(--_p,0%)/2 + .5%);
+    outline-offset: .1em;
+    transition: background-size .4s, background-position 0s .4s;
+  }
+  #stopRecording:hover {
+    --_p: 100%;
+    transition: background-position .4s, background-size 0s;
+  }
+  #stopRecording:active {
+    box-shadow: 0 0 9e9q inset #0009; 
+    background-color: var(--c);
+    color: #fff;
+  }
+  #stopRecording {
+    font-family: system-ui, sans-serif;
+    font-size: 16px;
+    cursor: pointer;
+    padding: .1em .6em;
+    font-weight: bold;  
+    border: none;
+  }
+  #startRecording {
+    --c:  #229091; /* the color*/
+    
+    box-shadow: 0 0 0 .1em inset var(--c); 
+    --_g: linear-gradient(var(--c) 0 0) no-repeat;
+    background: 
+      var(--_g) calc(var(--_p,0%) - 100%) 0%,
+      var(--_g) calc(200% - var(--_p,0%)) 0%,
+      var(--_g) calc(var(--_p,0%) - 100%) 100%,
+      var(--_g) calc(200% - var(--_p,0%)) 100%;
+    background-size: 50.5% calc(var(--_p,0%)/2 + .5%);
+    outline-offset: .1em;
+    transition: background-size .4s, background-position 0s .4s;
+  }
+  #startRecording:hover {
+    --_p: 100%;
+    transition: background-position .4s, background-size 0s;
+  }
+  #startRecording:active {
+    box-shadow: 0 0 9e9q inset #0009; 
+    background-color: var(--c);
+    color: #fff;
+  }
+  #startRecording {
+    font-family: system-ui, sans-serif;
+    font-size: 16px;
+    cursor: pointer;
+    padding: .1em .6em;
+    font-weight: bold;  
+    border: none;
+  }
