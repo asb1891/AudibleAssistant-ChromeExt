@@ -8,8 +8,8 @@ floatingContainer.style.justifyContent = "space-evenly"; // This distributes spa
 
 const recordingStatusImg = document.createElement("img");
 recordingStatusImg.id = "recordingStatus";
-recordingStatusImg.src = chrome.runtime.getURL("images/mic.gif");
-console.log(chrome.runtime.getURL("images/mic.gif"));
+recordingStatusImg.src = chrome.runtime.getURL("images/nomic.gif");
+console.log(chrome.runtime.getURL("images/nomic.gif"));
 recordingStatusImg.style.width = "50px";
 recordingStatusImg.style.height = "50px";
 recordingStatusImg.style.marginBottom = "10px";
@@ -23,21 +23,16 @@ startRecordingButton.textContent = "Turn On Mic";
 startRecordingButton.addEventListener("click", () => {
   // Logic for starting recording
   try {
-    chrome.runtime.sendMessage(
-      { command: "start_recording" },
-      function (response) {
-        if (chrome.runtime.lastError) {
-          console.error(
-            "Error sending 'start_recording' message:",
-            chrome.runtime.lastError
-          );
-        } else {
-            console.log("Changing to mic.gif");
-            recordingStatusImg.src = chrome.runtime.getURL("images/mic.gif");
-            console.log("New src: ", recordingStatusImg.src);
-        }
+    chrome.runtime.sendMessage({ command: "start_recording" }, function (response) {
+      if (chrome.runtime.lastError) {
+        console.error("Error sending 'start_recording' message:", chrome.runtime.lastError);
       }
-    );
+
+      // Proceed to change the image even if there was a non-critical lastError
+      console.log("Changing to mic.gif");
+      recordingStatusImg.src = chrome.runtime.getURL("images/mic.gif");
+      console.log("New src: ", recordingStatusImg.src);
+    });
   } catch (error) {
     console.error("Error in click handler for startRecordingButton:", error);
   }
@@ -53,26 +48,21 @@ stopRecordingButton.borderColor = "#2F4F4F";
 stopRecordingButton.addEventListener("click", () => {
   // Logic for stopping recording
   try {
-    chrome.runtime.sendMessage(
-      { command: "stop_recording" },
-      function (response) {
-        if (chrome.runtime.lastError) {
-          console.error(
-            "Error sending 'stop_recording' message:",
-            chrome.runtime.lastError
-          );
-        } else {
-          console.log("Recording stopped. Background response:", response);
-          //Change the GIF to the default GIF
-          recordingStatusImg.src = chrome.runtime.getURL("images/nomic.gif");
-          console.log("changing to recording gif");
-        }
+    chrome.runtime.sendMessage({ command: "stop_recording" }, function (response) {
+      if (chrome.runtime.lastError) {
+        console.error("Error sending 'stop_recording' message:", chrome.runtime.lastError);
       }
-    );
+
+      // Proceed to change the image even if there was a non-critical lastError
+      console.log("Changing to nomic.gif");
+      recordingStatusImg.src = chrome.runtime.getURL("images/nomic.gif");
+      console.log("New src: ", recordingStatusImg.src);
+    });
   } catch (error) {
     console.error("Error in click handler for stopRecordingButton:", error);
   }
 });
+
 // Create a title for the floating container
 const floatingTitle = document.createElement("h2");
 floatingTitle.textContent = "AUDIBLE ASSISTANT";
