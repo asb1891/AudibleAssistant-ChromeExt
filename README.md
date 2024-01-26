@@ -1,7 +1,6 @@
 <p align="center">
     <a href=""><img src="https://img.shields.io/badge/javascript-%2320232a.svg?style=for-the-badge&logo=javascript&logoColor=ffdd54" /></a>
     <a href="https://docs.python.org/3/index.html"><img src="https://img.shields.io/badge/python-%2320232a?style=for-the-badge&logo=python&logoColor=ffdd54" /></a>
-    <a href=""><img src="https://img.shields.io/badge/sql-%2320232a?style=for-the-badge&logo=sqlite&logoColor=%2361DAFB" /></a>
 </p>
 
 Audible Assistant: 
