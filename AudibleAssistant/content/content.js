@@ -6,6 +6,8 @@ floatingContainer.style.alignItems = "center"; // This centers the buttons horiz
 floatingContainer.style.justifyContent = "space-evenly"; // This distributes space evenly between children
 // Add any desired styles to floatingContainer here or in a linked CSS file
 
+// Recording Image status 
+// Styling for Image 
 const recordingStatusImg = document.createElement("img");
 recordingStatusImg.id = "recordingStatus";
 recordingStatusImg.src = chrome.runtime.getURL("images/nomic.gif");
@@ -14,7 +16,9 @@ recordingStatusImg.style.width = "50px";
 recordingStatusImg.style.height = "50px";
 recordingStatusImg.style.marginBottom = "10px";
 recordingStatusImg.style.display = "block";
+
 // Create the start recording button
+// Styling for the start recording button
 const startRecordingButton = document.createElement("button");
 startRecordingButton.id = "startRecording";
 startRecordingButton.textContent = "Turn On Mic";
@@ -39,6 +43,7 @@ startRecordingButton.addEventListener("click", () => {
 });
 
 // Create the stop recording button
+// Styling for the stop recording button
 const stopRecordingButton = document.createElement("button");
 stopRecordingButton.id = "stopRecording";
 stopRecordingButton.textContent = "Turn Off Mic";
@@ -64,6 +69,7 @@ stopRecordingButton.addEventListener("click", () => {
 });
 
 // Create a title for the floating container
+// Styling the Title element
 const floatingTitle = document.createElement("h2");
 floatingTitle.textContent = "AUDIBLE ASSISTANT";
 floatingTitle.style.fontStyle = "bold";
